@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Healthcare Report Analyzer</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background: #f7f8fc;
+            color: #20233a;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 950px;
+            margin: 45px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #6c63ff, #22b8a7);
+            color: white;
+            font-size: 30px;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+            color: #5148d8;
+        }
+
+        .header p {
+            color: #777b91;
+            font-size: 17px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 45px rgba(48, 51, 80, 0.08);
+        }
+
+        .upload-title {
+            font-size: 23px;
+            color: #282b45;
+            margin-bottom: 8px;
+        }
+
+        .upload-description {
+            color: #85899d;
+            margin-bottom: 25px;
+        }
+
+        .upload-area {
+            border: 2px dashed #b9b3ef;
+            border-radius: 20px;
+            padding: 40px 25px;
+            text-align: center;
+            background: #faf9ff;
+        }
+
+        .upload-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .upload-area h3 {
+            color: #343750;
+            margin-bottom: 8px;
+        }
+
+        .upload-area p {
+            color: #8b8fa3;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .choose-file {
+            display: inline-block;
+            padding: 13px 27px;
+            background: linear-gradient(135deg, #6c63ff, #5148d8);
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .file-status {
+            margin-top: 18px;
+            min-height: 24px;
+            font-size: 14px;
+            color: #7d8195;
+        }
+
+        .file-selected {
+            display: inline-block;
+            padding: 9px 14px;
+            border-radius: 10px;
+            background: #e7f8f3;
+            color: #168373;
+            font-weight: 600;
+        }
+
+        .analyze-button {
+            margin-top: 22px;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #22b8a7, #159d91);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #282b45;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 23px;
+            border-radius: 17px;
+            background: #f8f8fd;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            color: #343750;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #85899d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .disclaimer {
+            padding: 18px 20px;
+            border-radius: 15px;
+            background: #fff8e9;
+            border: 1px solid #f4dfaa;
+            color: #765d18;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        footer {
+            text-align: center;
+            color: #999daf;
+            font-size: 13px;
+            padding-bottom: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                margin: 25px auto;
+            }
+
+            .header h1 {
+                font-size: 29px;
+            }
+
+            .card {
+                padding: 23px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="logo">
+            ✦
+        </div>
+
+        <h1>
+            AI Healthcare Report Analyzer
+        </h1>
+
+        <p>
+            Understand healthcare reports in simple and easy-to-read language.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 class="upload-title">
+            Upload Your Healthcare Report
+        </h2>
+
+        <p class="upload-description">
+            Upload your report and let AI organize the information for you.
+        </p>
+
+        <form action="/analyze" method="POST" enctype="multipart/form-data">
+
+            <div class="upload-area">
+
+                <div class="upload-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Select your report
+                </h3>
+
+                <p>
+                    Supported formats: PDF or TXT
+                </p>
+
+                <label for="report" class="choose-file">
+                    Choose File
+                </label>
+
+                <input
+                    type="file"
+                    id="report"
+                    name="report"
+                    accept=".pdf,.txt"
+                    required
+                >
+
+                <div id="fileStatus" class="file-status">
+                    No file selected
+                </div>
+
+            </div>
+
+            <button type="submit" class="analyze-button">
+                ✨ Analyze Report
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 class="section-title">
+            What the AI Can Do
+        </h2>
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Simple Summary
+                </h3>
+
+                <p>
+                    Converts report information into easy-to-understand language.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Key Information
+                </h3>
+
+                <p>
+                    Highlights important information found inside the report.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    💬
+                </div>
+
+                <h3>
+                    Helpful Questions
+                </h3>
+
+                <p>
+                    Generates questions that users can discuss with a healthcare professional.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="disclaimer">
+
+        <strong>⚠ Important:</strong>
+
+        This tool is for educational and informational purposes only.
+        It does not provide medical diagnosis or treatment.
+        Always consult a qualified healthcare professional for medical advice.
+
+    </div>
+
+
+    <footer>
+
+        AI Healthcare Report Analyzer • AI-powered information assistance
+
+    </footer>
+
+</div>
+
+
+<script>
+
+    const fileInput = document.getElementById("report");
+    const fileStatus = document.getElementById("fileStatus");
+
+    fileInput.addEventListener("change", function () {
+
+        if (fileInput.files.length > 0) {
+
+            const file = fileInput.files[0];
+
+            fileStatus.innerHTML = "✓ " + file.name + " selected";
+
+            fileStatus.className = "file-status file-selected";
+
+        } else {
+
+            fileStatus.innerHTML = "No file selected";
+
+            fileStatus.className = "file-status";
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
